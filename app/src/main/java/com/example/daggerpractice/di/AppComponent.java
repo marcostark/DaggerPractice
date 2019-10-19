@@ -14,10 +14,13 @@ import dagger.Component;
 import dagger.android.AndroidInjector;
 import dagger.android.support.AndroidSupportInjectionModule;
 
-
+/**
+ * Carregando os principais modulos da aplicação
+ * */
 @Component(
         modules = {
                 AndroidSupportInjectionModule.class,
+                ActivityBuilderModule.class,
         }
 )
 public interface AppComponent extends AndroidInjector<BaseApplication> {
