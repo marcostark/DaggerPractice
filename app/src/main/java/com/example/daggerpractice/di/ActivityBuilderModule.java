@@ -10,8 +10,9 @@ import dagger.android.ContributesAndroidInjector;
 
 
 /**
- * Responsavél por carregar os modulos das atividades,
- * todas as atividades são carregadas aqui
+ * Responsavél por carregar os modulos das activitys,
+ * todas as atividades são carregadas aqui.
+ * Aqui serão inseridas apenas declarações das activitys
  * */
 
 @Module
