@@ -1,4 +1,4 @@
-package com.example.daggerpractice.di;
+package com.example.daggerpractice.di.component;
 
 
 /*
@@ -8,6 +8,10 @@ package com.example.daggerpractice.di;
 import android.app.Application;
 
 import com.example.daggerpractice.BaseApplication;
+import com.example.daggerpractice.di.module.ActivityBuilderModule;
+import com.example.daggerpractice.di.module.AppModule;
+
+import javax.inject.Singleton;
 
 import dagger.BindsInstance;
 import dagger.Component;
@@ -15,8 +19,11 @@ import dagger.android.AndroidInjector;
 import dagger.android.support.AndroidSupportInjectionModule;
 
 /**
- * Carregando os principais modulos da aplicação
+ * Carregando os principais modulos da aplicação, e
+ * disponível apenas uma única instancia durante
+ * toda a vida útil da aplicação
  * */
+@Singleton
 @Component(
         modules = {
                 AndroidSupportInjectionModule.class,

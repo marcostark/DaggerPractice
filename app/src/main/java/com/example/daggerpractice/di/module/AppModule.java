@@ -1,4 +1,4 @@
-package com.example.daggerpractice.di;
+package com.example.daggerpractice.di.module;
 
 import android.app.Application;
 import android.graphics.drawable.Drawable;
@@ -9,6 +9,8 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestManager;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.daggerpractice.R;
+
+import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
@@ -25,6 +27,12 @@ import dagger.Provides;
 @Module
 public class AppModule {
 
+    /**
+     * Serão destruidos até que o
+     * componente a que pertencem seja destruido
+     * no caso o AppComponent*/
+
+    @Singleton
     @Provides
     static RequestOptions provideRequestOptions(){
         return RequestOptions
@@ -38,12 +46,14 @@ public class AppModule {
      * dentro do modulo
      *
      * */
+    @Singleton
     @Provides
     static RequestManager providerGlideInstance(Application application, RequestOptions requestOptions){
         return Glide.with(application)
                 .setDefaultRequestOptions(requestOptions);
     }
 
+    @Singleton
     @Provides
     static Drawable providerAppDrawable(Application application){
         return ContextCompat.getDrawable(application, R.drawable.logo);

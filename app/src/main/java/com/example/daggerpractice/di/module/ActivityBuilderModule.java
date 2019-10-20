@@ -1,4 +1,4 @@
-package com.example.daggerpractice.di;
+package com.example.daggerpractice.di.module;
 
 import com.example.daggerpractice.AuthActivity;
 
