@@ -9,6 +9,10 @@ import javax.inject.Singleton;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
+/**
+ * Classe responsavél por resolver um dos principais problemas
+ * do uso do dagger com o padrão MMVM
+ * */
 
 public class ViewModelProviderFactory implements ViewModelProvider.Factory {
 

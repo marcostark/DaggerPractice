@@ -10,6 +10,7 @@ import android.app.Application;
 import com.example.daggerpractice.BaseApplication;
 import com.example.daggerpractice.di.module.ActivityBuilderModule;
 import com.example.daggerpractice.di.module.AppModule;
+import com.example.daggerpractice.di.module.ViewModelFactoryModule;
 
 import javax.inject.Singleton;
 
@@ -21,7 +22,8 @@ import dagger.android.support.AndroidSupportInjectionModule;
 /**
  * Carregando os principais modulos da aplicação, e
  * disponível apenas uma única instancia durante
- * toda a vida útil da aplicação
+ * toda a vida útil da aplicação.
+ * Modulos aqui declarados serão usados por toda a aplicação
  * */
 @Singleton
 @Component(
@@ -29,6 +31,7 @@ import dagger.android.support.AndroidSupportInjectionModule;
                 AndroidSupportInjectionModule.class,
                 ActivityBuilderModule.class,
                 AppModule.class,
+                ViewModelFactoryModule.class,
         }
 )
 public interface AppComponent extends AndroidInjector<BaseApplication> {
