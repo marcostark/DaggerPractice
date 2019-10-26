@@ -11,7 +11,7 @@ import retrofit2.Retrofit;
 @Module
 public class AuthModule {
 
-    //Apenas as dependencias desse subcomponent stat
+    //Apenas as dependencias desse subcomponent
     @Provides
     static AuthApi provideAuthApi(Retrofit retrofit){
         return retrofit.create(AuthApi.class);
