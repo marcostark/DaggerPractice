@@ -7,7 +7,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -29,6 +31,7 @@ public class AuthActivity extends DaggerAppCompatActivity implements View.OnClic
     private AuthViewModel authViewModel;
 
     private EditText userId;
+    private ProgressBar progressBar;
 
     @Inject
     ViewModelProviderFactory providerFactory;
@@ -45,6 +48,7 @@ public class AuthActivity extends DaggerAppCompatActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.auth_main);
         userId = findViewById(R.id.user_id_input);
+        progressBar = findViewById(R.id.progress_bar);
 
         authViewModel = ViewModelProviders.of(this, providerFactory).get(AuthViewModel.class);
 
@@ -74,14 +78,42 @@ public class AuthActivity extends DaggerAppCompatActivity implements View.OnClic
 
     // MEtodo para observar o usuario retornado
     private void subscribeObservers(){
-        authViewModel.observerUser().observe(this, new Observer<User>() {
-            @Override
-            public void onChanged(User user) {
-                if(user != null){
-                    Log.i(TAG, "onChanged: " + user.getEmail());
-                }
-            }
-        });
+       authViewModel.observerUser().observe(this, new Observer<AuthResource<User>>() {
+           @Override
+           public void onChanged(AuthResource<User> userAuthResource) {
+             if(userAuthResource != null){
+                 switch (userAuthResource.status){
+                     case LOADING: {
+                            showProgressBar(true);
+                         break;
+                     }
+                     case AUTHENTICATED: {
+                         Log.i(TAG, "onChanged: Login Sucess: " + userAuthResource.data.getEmail());
+                         showProgressBar(false);
+                         break;
+                     }
+                     case ERROR: {
+                         Toast.makeText(AuthActivity.this, userAuthResource.message
+                                 + "\n Informe um número entre 1 e 10", Toast.LENGTH_SHORT).show();
+                         showProgressBar(false);
+                         break;
+                     }
+                     case NOT_AUTHENTICATED: {
+                         showProgressBar(false);
+                         break;
+                     }
+                 }
+             }
+           }
+       });
+    }
+
+    private void showProgressBar(boolean isVIsible){
+        if(isVIsible){
+            progressBar.setVisibility(View.VISIBLE);
+        } else {
+            progressBar.setVisibility(View.GONE);
+        }
     }
 
     // Verifica se não foi informado nenhum texto
